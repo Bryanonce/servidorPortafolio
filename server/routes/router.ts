@@ -1,11 +1,11 @@
+/*IMPORT ROUTES*/
 import {routerImg} from './images';
-import {Router,Request,Response} from 'express';
+import {routerKnow} from './knowledge';
+
+import {Router} from 'express';
 
 const router = Router();
-
-router.get('/',(req:Request,res:Response)=>{
-    return res.send("Hola Mundo")
-});
 router.use('/images',routerImg);
+router.use('/knowledge',routerKnow)
 
 export default router;
