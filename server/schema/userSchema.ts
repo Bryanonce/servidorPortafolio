@@ -3,6 +3,11 @@ import uniqueVal from 'mongoose-unique-validator';
 
 const date = new Date();
 
+const rolValidate = {
+    values: ['SUPER_ADMIN','USER'],
+    message: '{VALUE} no es un tipo válido'
+}
+
 const UserSchema = new Schema({
     email:{
         type: String,
@@ -16,6 +21,12 @@ const UserSchema = new Schema({
     password:{
         type: String,
         required: [true, "Se necesita el password"]
+    },
+    rol:{
+        type: String,
+        default: 'USER',
+        required: [true, "Se necesita el rol"],
+        enum: rolValidate
     },
     last_entry:{
         type: Date,

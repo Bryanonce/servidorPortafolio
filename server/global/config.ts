@@ -16,9 +16,15 @@ export const MONGO_URI:string = (process.env.NODE_ENV === 'dev')? 'mongodb://loc
 //---------------------------//
 //       Semilla JWT         //
 //---------------------------//
-export const SEED_JWT: string = String(process.env.SEED_JWT) || 'seed_de_prueba'
+export const SEED_JWT: string = String(process.env.SEED_JWT) || 'seed_de_prueba';
 
 //---------------------------//
 //      Caducidad JWT        //
 //---------------------------//
-export const CAD_JWT: number = Number(process.env.CAD_JWT) || 60*60*60
+export const CAD_JWT: number = Number(process.env.CAD_JWT) || 60*60*60;
+
+//---------------------------//
+//       Super Admin         //
+//---------------------------//
+export const SUPER_ADMIN: string = (process.env.NODE_ENV === 'dev')? 'admin@admin.com': String(process.env.SUPER_ADMIN);
+export const SUPER_PASS: string = (process.env.NODE_ENV === 'dev')? 'password5': String(process.env.SUPER_PASS);
