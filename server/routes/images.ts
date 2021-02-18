@@ -7,11 +7,12 @@ routerImg.get('/',(req:Request,res:Response)=>{
     return res.send("Hola Img");
 });
 
-routerImg.get('/:img',(req:Request,res:Response)=>{
+routerImg.get('/:folder/:img',(req:Request,res:Response)=>{
     let no_image = path.join(__dirname,'../assets/icons/not-found.jpg');
     try{
-        let img = req.params.img;
-        let pathImg = path.join(__dirname,`../assets/icons/${img}`);
+        const img = req.params.img;
+        const folder = req.params.folder;
+        let pathImg = path.join(__dirname,`../assets/icons/${folder}/${img}`);
         return res.sendFile(pathImg);
     }catch(err){
         return res.sendFile(no_image);

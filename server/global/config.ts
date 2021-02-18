@@ -1,12 +1,12 @@
 //---------------------------//
-//      Port Connection      //
-//---------------------------//
-export const PORT:number = Number(process.env.PORT) || 3000;
-
-//---------------------------//
 //    Enviroment Stablish    //
 //---------------------------//
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
+
+//---------------------------//
+//      Port Connection      //
+//---------------------------//
+export const PORT:number = (process.env.NODE_ENV === 'dev')? 3000: Number(process.env.PORT);
 
 //---------------------------//
 //       DB Connection       //
@@ -16,12 +16,12 @@ export const MONGO_URI:string = (process.env.NODE_ENV === 'dev')? 'mongodb://loc
 //---------------------------//
 //       Semilla JWT         //
 //---------------------------//
-export const SEED_JWT: string = String(process.env.SEED_JWT) || 'seed_de_prueba';
+export const SEED_JWT: string = (process.env.NODE_ENV === 'dev')? 'seed_de_prueba': String(process.env.SEED_JWT);
 
 //---------------------------//
 //      Caducidad JWT        //
 //---------------------------//
-export const CAD_JWT: number = Number(process.env.CAD_JWT) || 60*60*60;
+export const CAD_JWT: number = (process.env.NODE_ENV === 'dev')? 60*60*60: Number(process.env.CAD_JWT);
 
 //---------------------------//
 //       Super Admin         //

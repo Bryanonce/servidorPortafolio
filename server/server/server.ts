@@ -77,6 +77,5 @@ export class Server {
                 console.log('Super Admin en línea');
             })
         })
-        
     }
 }
