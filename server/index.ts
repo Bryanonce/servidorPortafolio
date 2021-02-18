@@ -6,5 +6,3 @@ MiServidor.addPublicPath('./public');
 MiServidor.connectDB();
 MiServidor.addRoutes(Router);
 MiServidor.connectServer();
-
-
