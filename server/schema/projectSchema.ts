@@ -5,7 +5,8 @@ const date = new Date();
 const ProjectSchema = new Schema({
     id_knowledge:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Knowledges'
+        ref: 'Knowledges',
+        default: []
     }],
     title:{
         type: String,

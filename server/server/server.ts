@@ -43,5 +43,6 @@ export class Server {
             }
             console.log('Base de datos conectada');
         });
+        mongoose.set('useFindAndModify', false);
     }
 }

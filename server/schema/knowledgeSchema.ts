@@ -2,10 +2,16 @@ import mongoose,{Schema} from 'mongoose';
 
 const date = new Date();
 
+const typeValidate = {
+    values: ['FRONTEND','BACKEND'],
+    message: '{VALUE} no es un tipo válido'
+}
+
 const knowledgeSchema = new Schema({
     id_project:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Projects'
+        ref: 'Projects',
+        default: []
     }],
     name:{
         type: String,
@@ -13,6 +19,7 @@ const knowledgeSchema = new Schema({
     },
     type:{
         type: String,
+        enum: typeValidate,
         required: [true, "Se necesita el stack"]
     },
     description:{

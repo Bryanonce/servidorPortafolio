@@ -1,32 +1,35 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.routerPrj = void 0;
 // import npm dependences
-import { Router, Request, Response } from 'express';
+const express_1 = require("express");
 // import Schemas or Models
-import Projects from '../schema/projectSchema';
+const projectSchema_1 = __importDefault(require("../schema/projectSchema"));
 // import middlewares
-import {TokenAuth} from '../middlewares/tokenAuth'
-
-export const routerPrj = Router();
-
-routerPrj.get('/', (req: Request, res: Response) => {
-    Projects.find({})
+const tokenAuth_1 = require("../middlewares/tokenAuth");
+exports.routerPrj = express_1.Router();
+exports.routerPrj.get('/', (req, res) => {
+    projectSchema_1.default.find({})
         .exec((err, projectsDB) => {
-            if (err) {
-                return res.status(400).json({
-                    ok: false,
-                    data: {}
-                })
-            }
-            return res.json({
-                ok: true,
-                data: projectsDB
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                data: {}
             });
-        })
+        }
+        return res.json({
+            ok: true,
+            data: projectsDB
+        });
+    });
 });
-
-routerPrj.post('/',TokenAuth, (req: Request, res: Response) => {
+exports.routerPrj.post('/', tokenAuth_1.TokenAuth, (req, res) => {
     const date = Date();
     const body = req.body;
-    const project = new Projects({
+    const project = new projectSchema_1.default({
         title: body.title,
         description: body.description,
         image: body.image,
@@ -40,20 +43,19 @@ routerPrj.post('/',TokenAuth, (req: Request, res: Response) => {
             return res.status(400).json({
                 ok: false,
                 data: {}
-            })
+            });
         }
         return res.json({
             ok: true,
             data: projectsDB
-        })
-    })
-})
-
-routerPrj.put('/:id',TokenAuth,(req:Request,res:Response)=>{
+        });
+    });
+});
+exports.routerPrj.put('/:id', tokenAuth_1.TokenAuth, (req, res) => {
     const date = new Date();
     const id = req.params.id;
     const body = req.body;
-    Projects.findByIdAndUpdate(id,{
+    projectSchema_1.default.findByIdAndUpdate(id, {
         title: body.title,
         description: body.description,
         image: body.image,
@@ -61,58 +63,55 @@ routerPrj.put('/:id',TokenAuth,(req:Request,res:Response)=>{
         id_knowledge: body.id_knowledge,
         updated_at: date
     })
-    .exec((err,projectsDB)=>{
+        .exec((err, projectsDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
                 data: {}
-            })
+            });
         }
         return res.json({
             ok: true,
             data: projectsDB
-        })
-    })
+        });
+    });
 });
-
-routerPrj.delete('/:id',TokenAuth,(req:Request,res:Response)=>{
+exports.routerPrj.delete('/:id', tokenAuth_1.TokenAuth, (req, res) => {
     const id = req.params.id;
-    Projects.findByIdAndRemove(id)
-    .exec((err)=>{
+    projectSchema_1.default.findByIdAndRemove(id)
+        .exec((err) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
                 data: {
                     messaje: 'Error al eliminar el registro'
                 }
-            })
+            });
         }
         return res.json({
             ok: true,
             data: {
                 message: 'Registro eliminado correctamente'
             }
-        })
-    })
+        });
+    });
 });
-
 /*Buscar todas las tecnologias utilizadas en el proyecto con el ID:*/
-routerPrj.get('/search/:id', (req: Request, res: Response) => {
-    let id = req.params.id
-    Projects
-    .findById(id)
-    .populate('id_knowledge','name type description image')
-    .exec((err,projectsDB)=>{
+exports.routerPrj.get('/search/:id', (req, res) => {
+    let id = req.params.id;
+    projectSchema_1.default
+        .findById(id)
+        .populate('id_knowledge', 'name type description image')
+        .exec((err, projectsDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
                 data: {}
-            })
+            });
         }
         return res.json({
             ok: true,
             data: projectsDB
-        })
-    })
+        });
+    });
 });
-

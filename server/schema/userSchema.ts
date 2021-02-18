@@ -9,6 +9,10 @@ const UserSchema = new Schema({
         required: [true, "Se necesita el usuario"],
         unique: true
     },
+    name:{
+        type: String,
+        required: [true, "Se necesita el nombre"]
+    },
     password:{
         type: String,
         required: [true, "Se necesita el password"]
@@ -30,6 +34,8 @@ const UserSchema = new Schema({
     }
 });
 
-UserSchema.plugin(uniqueVal);
+UserSchema.plugin(uniqueVal,{
+    message: '{PATH} ya se encuentra registrado'
+});
 
 export default mongoose.model('Users', UserSchema);
